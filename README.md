@@ -1,5 +1,5 @@
 # Baby Blob MPL Token Metadata Extension Program 
-## Proof of concept for the Baby Blobs fully on chain Game!
+## Proof of concept for the Baby Blobs on-chain Game!
 
 
 ### Build the rust program alone
