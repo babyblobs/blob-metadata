@@ -1,23 +1,6 @@
-# The Best Solana Program Template 
-## Includes Shank/Solita SDK generation, Amman support, scripts, .github configuration, and more!
+# Baby Blob MPL Token Metadata Extension Program 
+## Proof of concept for the Baby Blobs fully on chain Game!
 
-### Environment Setup
-1. Install Rust from https://rustup.rs/
-2. Install Solana from https://docs.solana.com/cli/install-solana-cli-tools#use-solanas-install-tool
-3. Run `yarn install` to install dependencies
-
----
-
-### Replace default values
-```
-$ yarn rename -n cool_program_name -i NewProgramKeypair111111111111111111111111111
-```
-
-Values that will be replaced:
-- `my_program_name` (and `my-program-name`)
-- `MyProgram1111111111111111111111111111111111`
-
----
 
 ### Build the rust program alone
 ```
