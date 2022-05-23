@@ -1,9 +1,38 @@
-pub mod entrypoint;
-pub mod error;
-pub mod instruction;
-pub mod processor;
-pub mod state;
+mod constants;
+mod errors;
+mod processor;
+mod state;
+mod utils;
 
-pub use solana_program;
+use anchor_lang::prelude::*;
+use processor::*;
+use state::*;
 
-solana_program::declare_id!("MyProgram1111111111111111111111111111111111");
+declare_id!("BLoBXGoEp1KmFcYNbzFeq9KaFyrqy4A1HH55ceA19qLW");
+
+#[program]
+pub mod blob_metadata {
+    use super::*;
+
+    pub fn initialize_extension_manager(ctx: Context<InitializeExtensionManager>) -> Result<()> {
+        handle_initialize_extension_manager(ctx)
+    }
+
+    pub fn initialize_extension_metadata(
+        ctx: Context<InitializeExtensionMetadata>,
+        nickname: Option<String>,
+    ) -> Result<()> {
+        handle_initialize_extension_metadata(ctx, nickname)
+    }
+
+    pub fn update_nickname(ctx: Context<UpdateNickname>, nickname: Option<String>) -> Result<()> {
+        handle_update_nickname(ctx, nickname)
+    }
+
+    pub fn update_as_authority(
+        ctx: Context<UpdateAsAuthority>,
+        data: ExtensionMetadataData,
+    ) -> Result<()> {
+        handle_update_as_authority(ctx, data)
+    }
+}

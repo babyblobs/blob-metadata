@@ -1,0 +1,290 @@
+{
+  "version": "0.1.0",
+  "name": "blob_metadata",
+  "instructions": [
+    {
+      "name": "initializeExtensionManager",
+      "accounts": [
+        {
+          "name": "extensionManager",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "metadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "updateAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "initializeExtensionMetadata",
+      "accounts": [
+        {
+          "name": "extensionMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "extensionManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "collectionMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "metadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "token",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nickname",
+          "type": {
+            "option": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateNickname",
+      "accounts": [
+        {
+          "name": "extensionMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "extensionManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "collectionMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "metadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "token",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "nickname",
+          "type": {
+            "option": "string"
+          }
+        }
+      ]
+    },
+    {
+      "name": "updateAsAuthority",
+      "accounts": [
+        {
+          "name": "extensionMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "updateAuthority",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "extensionManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "collectionMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "metadata",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": {
+            "defined": "ExtensionMetadataData"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "ExtensionManager",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collectionMint",
+            "type": "publicKey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ExtensionMetadata",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "collectionMint",
+            "type": "publicKey"
+          },
+          {
+            "name": "mint",
+            "type": "publicKey"
+          },
+          {
+            "name": "extensionData",
+            "type": {
+              "defined": "ExtensionMetadataData"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "types": [
+    {
+      "name": "ExtensionMetadataData",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "nickname",
+            "type": {
+              "option": "string"
+            }
+          },
+          {
+            "name": "lives",
+            "type": {
+              "option": "u8"
+            }
+          },
+          {
+            "name": "lastFed",
+            "type": {
+              "option": "i64"
+            }
+          },
+          {
+            "name": "otherInfo",
+            "type": {
+              "defined": "RemainingDataTypes"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "RemainingDataTypes",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          }
+        ]
+      }
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "MissingCollection",
+      "msg": "NFT metadata doesn't have a collection"
+    },
+    {
+      "code": 6001,
+      "name": "CollectionMismatch",
+      "msg": "NFT collection doesn't match the collection manager collection!"
+    },
+    {
+      "code": 6002,
+      "name": "UnverifiedCollection",
+      "msg": "NFT collection isn't verified!"
+    },
+    {
+      "code": 6003,
+      "name": "PublicKeyMismatch",
+      "msg": "Public key mismatch"
+    },
+    {
+      "code": 6004,
+      "name": "NicknameTooLong",
+      "msg": "Nickname can't be longer than 32 characters!"
+    }
+  ],
+  "metadata": {
+    "address": "BLoBXGoEp1KmFcYNbzFeq9KaFyrqy4A1HH55ceA19qLW",
+    "origin": "anchor",
+    "binaryVersion": "0.24.2",
+    "libVersion": "0.24.2"
+  }
+}

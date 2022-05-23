@@ -1,2 +1,3 @@
 [v1]
+"anchor-cli 0.24.2 (registry+https://github.com/rust-lang/crates.io-index)" = ["anchor"]
 "shank-cli 0.0.2 (registry+https://github.com/rust-lang/crates.io-index)" = ["shank"]
