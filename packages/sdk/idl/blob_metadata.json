@@ -171,6 +171,73 @@
           }
         }
       ]
+    },
+    {
+      "name": "loseLife",
+      "accounts": [
+        {
+          "name": "extensionMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "collectionMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "feed",
+      "accounts": [
+        {
+          "name": "extensionMetadata",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "extensionManager",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "collectionMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "metadata",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "token",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
     }
   ],
   "accounts": [
@@ -223,15 +290,15 @@
           },
           {
             "name": "lives",
-            "type": {
-              "option": "u8"
-            }
+            "type": "u8"
           },
           {
             "name": "lastFed",
-            "type": {
-              "option": "i64"
-            }
+            "type": "i64"
+          },
+          {
+            "name": "feedStreak",
+            "type": "u32"
           },
           {
             "name": "otherInfo",
@@ -258,7 +325,7 @@
     {
       "code": 6000,
       "name": "MissingCollection",
-      "msg": "NFT metadata doesn't have a collection"
+      "msg": "NFT metadata doesn't have a collection!"
     },
     {
       "code": 6001,
@@ -273,12 +340,22 @@
     {
       "code": 6003,
       "name": "PublicKeyMismatch",
-      "msg": "Public key mismatch"
+      "msg": "Public key mismatch!"
     },
     {
       "code": 6004,
       "name": "NicknameTooLong",
       "msg": "Nickname can't be longer than 32 characters!"
+    },
+    {
+      "code": 6005,
+      "name": "BlobIsFull",
+      "msg": "You can't feed your Blob more than once a day!"
+    },
+    {
+      "code": 6006,
+      "name": "BlobNotStarving",
+      "msg": "The Blob can't lose a life due to starving unless it hasn't been fed for a week!"
     }
   ],
   "metadata": {

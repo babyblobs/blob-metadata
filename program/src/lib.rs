@@ -35,4 +35,12 @@ pub mod blob_metadata {
     ) -> Result<()> {
         handle_update_as_authority(ctx, data)
     }
+
+    pub fn lose_life(ctx: Context<LoseLife>) -> Result<()> {
+        handle_lose_life(ctx)
+    }
+
+    pub fn feed(ctx: Context<Feed>) -> Result<()> {
+        handle_feed(ctx)
+    }
 }

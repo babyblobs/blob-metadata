@@ -33,17 +33,23 @@ impl ExtensionMetadata {
         32 + // collection mint
         32 + // mint
         1 + MAX_NAME_LENGTH + // nickname
-        1 + 1 + // lives
-        1 + 8 + // last fed
+        1 + // lives
+        8 + // last fed
+        4 + // feed streak
         100 // for remaining data before resizing is live
     ;
     pub const PREFIX: &'static str = "metadata";
 
-    pub fn new(collection_mint: Pubkey, mint: Pubkey, nickname: Option<String>) -> Self {
+    pub fn new(
+        collection_mint: Pubkey,
+        mint: Pubkey,
+        nickname: Option<String>,
+        timestamp: i64,
+    ) -> Self {
         ExtensionMetadata {
             collection_mint,
             mint,
-            extension_data: ExtensionMetadataData::new(nickname),
+            extension_data: ExtensionMetadataData::new(nickname, timestamp),
         }
     }
 }
@@ -51,16 +57,18 @@ impl ExtensionMetadata {
 #[derive(AnchorSerialize, AnchorDeserialize, Clone, Debug)]
 pub struct ExtensionMetadataData {
     pub nickname: Option<String>,
-    pub lives: Option<u8>,
-    pub last_fed: Option<i64>,
+    pub lives: u8,
+    pub last_fed: i64,
+    pub feed_streak: u32,
     pub other_info: RemainingDataTypes,
 }
 impl ExtensionMetadataData {
-    pub fn new(nickname: Option<String>) -> Self {
+    pub fn new(nickname: Option<String>, timestamp: i64) -> Self {
         ExtensionMetadataData {
             nickname,
-            lives: Some(STARTING_LIVES),
-            last_fed: None,
+            lives: STARTING_LIVES,
+            last_fed: timestamp,
+            feed_streak: 0,
             other_info: RemainingDataTypes::None,
         }
     }

@@ -60,8 +60,9 @@ pub fn handle_initialize_extension_metadata(
         }
     }
 
+    let current_timestamp = Clock::get()?.unix_timestamp;
     extension_metadata.collection_mint = collection_mint.key();
     extension_metadata.mint = mint.key();
-    extension_metadata.extension_data = ExtensionMetadataData::new(nickname);
+    extension_metadata.extension_data = ExtensionMetadataData::new(nickname, current_timestamp);
     Ok(())
 }
