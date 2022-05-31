@@ -201,13 +201,18 @@ programCommand('reset_last_fed')
       extensionMetadata,
     );
 
-    const lastFedData = extensionData.lastFed - 60 * 60 * 24;
+    let lastFed;
+    if (typeof extensionData.lastFed === 'number') {
+      lastFed = extensionData.lastFed - 60 * 60 * 24;
+    } else {
+      lastFed = extensionData.lastFed.toNumber() - 60 * 60 * 24;
+    }
 
     const args: UpdateAsAuthorityInstructionArgs = {
       data: {
         nickname: extensionData.nickname,
         lives: extensionData.lives,
-        lastFed: lastFedData,
+        lastFed,
         feedStreak: extensionData.feedStreak,
         otherInfo: RemainingDataTypes.None,
       },
