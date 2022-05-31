@@ -2,7 +2,7 @@ use anchor_lang::prelude::*;
 use anchor_spl::token::{Mint, TokenAccount};
 
 use crate::{
-    constants::HUNGRY_TIME,
+    constants::{HUNGRY_TIME, STARVING_TIME},
     errors::BlobExtensionError,
     state::{ExtensionManager, ExtensionMetadata, Metadata},
     utils::assert_keys_equal,
@@ -63,7 +63,11 @@ pub fn handle_feed(ctx: Context<Feed>) -> Result<()> {
                 extension_data.lives += 1;
             }
         } else {
-            msg!("Feeding your blob and resetting your feed streak! :/");
+            if time_since_last_fed < STARVING_TIME {
+                msg!("Feeding your blob and resetting your feed streak! :/");
+            } else {
+                msg!("Your blob was starving! Feeding it now! Since no one caught you harming your blob, resetting your feed streak is your only punishment.");
+            }
             extension_data.last_fed = current_timestamp;
             extension_data.feed_streak = 0;
         }

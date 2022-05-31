@@ -1,7 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::Mint;
 
-use crate::{constants::FEED_TIME, errors::BlobExtensionError, state::ExtensionMetadata};
+use crate::{constants::STARVING_TIME, errors::BlobExtensionError, state::ExtensionMetadata};
 
 #[derive(Accounts)]
 pub struct LoseLife<'info> {
@@ -18,7 +18,7 @@ pub fn handle_lose_life(ctx: Context<LoseLife>) -> Result<()> {
     let extension_data = &mut extension_metadata.extension_data;
     let current_timestamp = Clock::get()?.unix_timestamp;
 
-    if current_timestamp - extension_data.last_fed > FEED_TIME {
+    if current_timestamp - extension_data.last_fed > STARVING_TIME {
         extension_data.lives = extension_data.lives.saturating_sub(1);
         extension_data.last_fed = current_timestamp;
         extension_data.feed_streak = 0;
